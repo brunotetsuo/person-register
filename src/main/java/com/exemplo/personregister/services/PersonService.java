@@ -31,5 +31,10 @@ public class PersonService {
 		Optional<Person> obj = repository.findByName(name);
 		return obj.orElseThrow(() -> new ResourceNotFoundException(name));
 	}
+	
+	// DELETE
+	public void delete(String name) {
+		repository.deleteById(name);
+	}
 
 }
