@@ -1,9 +1,12 @@
 package com.exemplo.personregister.resources;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +26,12 @@ public class PersonResource {
 	public ResponseEntity<Person> insert(@Valid @RequestBody Person obj) {
 		obj = service.insert(obj);
 		return ResponseEntity.ok().body(obj);
+	}
+	
+	@GetMapping
+	public ResponseEntity<List<Person>> findAll() {
+		List<Person> list = service.findAll();
+		return ResponseEntity.ok().body(list);
 	}
 
 }
