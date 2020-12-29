@@ -5,6 +5,8 @@ import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
@@ -19,6 +21,9 @@ public class Person implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id  // É a chave primária da tabela.
+	@GeneratedValue(strategy = GenerationType.IDENTITY)//Cada nova inserção uma nova chave primária é gerada.
+	private Long id;
+	
 	@NotEmpty  // Não pode ser nulo ou vazio.
 	private String name;
 	
@@ -37,12 +42,21 @@ public class Person implements Serializable {
 	
 	public Person () {
 	}
-	
-	public Person (String name, String email, String cpf, LocalDate birthDate) {
+
+	public Person (Long id, String name, String email, String cpf, LocalDate birthDate) {
+		this.id = id;
 		this.name = name;
 		this.email = email;
 		this.cpf = cpf;
 		this.birthDate = birthDate;
+	}
+	
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getName() {

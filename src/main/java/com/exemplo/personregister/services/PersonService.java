@@ -27,14 +27,28 @@ public class PersonService {
 	}
 	
 	// GET
-	public Person findByName(String name) {
-		Optional<Person> obj = repository.findByName(name);
-		return obj.orElseThrow(() -> new ResourceNotFoundException(name));
+	public Person findById(Long id) {
+		Optional<Person> obj = repository.findById(id);
+		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
 	}
 	
 	// DELETE
-	public void delete(String name) {
-		repository.deleteById(name);
+	public void delete(Long id) {
+		repository.deleteById(id);
+	}
+	
+	// PUT
+	public Person update(Long id, Person obj) {
+		Person entity = repository.getOne(id);
+		updateData(entity, obj);
+		return repository.save(entity);
+	}
+	
+	private void updateData(Person entity, Person obj) {
+		entity.setName(obj.getName());
+		entity.setEmail(obj.getEmail());
+		entity.setCpf(obj.getCpf());
+		entity.setBirthDate(obj.getBirthDate());
 	}
 
 }
